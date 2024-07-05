@@ -23,6 +23,7 @@ const linksArr = {
         </div>
         <div class="links">
             <span class="link" v-for="link, index in linksArr" :key="index">{{ link.title }}</span>
+            <u-button :type="'outline'" />
         </div>
     </header>
 </template>
@@ -34,5 +35,32 @@ const linksArr = {
     align-items: center;
     justify-content: space-between;
     max-width: 100%;
+    margin: 2.08vw 3.13vw;
+    background-color: white;
+}
+
+.logo img {
+    width: 8.85vw;
+    height: auto;
+}
+
+.links {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 2.60vw;
+}
+
+.link {
+    font-weight: var(--medium);
+    font-size: 1.04vw;
+    color: var(--c-black);
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.link:hover {
+    color: #B2B2B2;
+    transition: 0.3s ease-in-out;
 }
 </style>

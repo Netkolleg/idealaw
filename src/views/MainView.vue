@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import WelcomeView from './sections/WelcomeView.vue'
 </script>
 
 <template>
-  <div>
-    <u-navbar />
-  </div>
+  <u-navbar />
+  <WelcomeView />
 </template>

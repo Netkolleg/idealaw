@@ -3,10 +3,10 @@
 
 /* Color palette */
 :root {
-  --black: var(#121212);
-  --gray: var(#d9d9d9);
-  --gray-additional: var(#b3b3b3);
-  --gray-border: var(#bfbfbf);
+  --c-black: #121212;
+  --gray: #d9d9d9;
+  --gray-additional: #b3b3b3;
+  --gray-border: #bfbfbf;
 
   --thin: 100;
   --extra-light: 200;
@@ -35,4 +35,5 @@ body {
   font-family: 'Raleway', sans-serif;
   font-style: normal;
   font-optical-sizing: auto;
+  color: var(--c-black);
 }
