@@ -1,7 +1,7 @@
 <script setup lang="ts">
 export interface Props {
-    title?: string,
-    type?: string[]
+    title: string,
+    type: string[]
 }
 
 const props = withDefaults(defineProps<Props>(), {

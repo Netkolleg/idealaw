@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
 const linksArr = {
     services: {
         title: 'Услуги',
@@ -14,6 +18,10 @@ const linksArr = {
     }
 }
 
+async function pushToRoute(pathName: string) {
+    router.push(pathName)
+}
+
 </script>
 
 <template>
@@ -22,7 +30,8 @@ const linksArr = {
             <img src="../../assets/logo.svg" alt="IdeaLaw Logo">
         </div>
         <div class="links">
-            <span class="link" v-for="link, index in linksArr" :key="index">{{ link.title }}</span>
+            <span class="link" v-for="link, index in linksArr" :key="index" @click="pushToRoute(link.path)">{{
+                link.title }}</span>
             <u-button :type="'outline'" />
         </div>
     </header>
