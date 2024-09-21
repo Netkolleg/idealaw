@@ -6,6 +6,7 @@ import { allServices } from '../collections'
 const router = useRouter()
 
 interface Service {
+    id: number | null,
     path: string
     name: string
     info: string
@@ -14,35 +15,38 @@ interface Service {
 const state = reactive<{
     tab: string
     civilServices: Service[]
-    criminalServices: Service[]
+    criminalServices: Service[],
+    otherServices: Service[]
 }>({
     tab: 'civil',
     civilServices: [],
-    criminalServices: []
+    criminalServices: [],
+    otherServices: []
 })
 
 onBeforeMount(() => {
     state.civilServices = allServices.civil.services || []
     state.criminalServices = allServices.criminal.services || []
+    state.otherServices = allServices.other.services || []
 })
 
 function switchTab(name: string) {
     state.tab = name
 }
 
-function pushToRoute(pathName: string, routeParams: string) {
-    router.push({ path: `${pathName + routeParams}` })
+function pushToRoute(pathName: string, routeParams: { type: string, path: string }, id: number | null) {
+    router.push({ name: pathName, params: { type: routeParams.type, path: routeParams.path }, query: { id: id } })
 }
 </script>
 
 <template>
+    <u-navheader :title="'Услуги'" :type="'child-page'" />
     <div class="services-wrapper">
-        <u-navheader :title="'Услуги'" :type="'child-page'" />
         <div class="services-section">
             <div class="segmented-control-wrapper">
                 <div class="segmented-control">
-                    <button v-for="(category, index) in [allServices.civil, allServices.criminal]" :key="index"
-                        @click="switchTab(category.name)"
+                    <button v-for="(category, index) in [allServices.civil, allServices.criminal, allServices.other]"
+                        :key="index" @click="switchTab(category.name)"
                         :class="[{ 'tab-active': state.tab === category.name }, 'segmented-tab']">
                         {{ category.title }}
                     </button>
@@ -51,19 +55,29 @@ function pushToRoute(pathName: string, routeParams: string) {
             <transition name="fade" mode="out-in">
                 <div v-if="state.tab === 'civil'" class="services-content">
                     <div v-for="(service, index) in state.civilServices" :key="index">
-                        <u-service-item @click="pushToRoute('service/', `civil/${service.path}`)"
+                        <u-service-item
+                            @click="pushToRoute('service', { type: 'civil', path: service.path }, service.id)"
+                            :serviceInfo="service" />
+                    </div>
+                </div>
+                <div v-else-if="state.tab === 'criminal'" class="services-content">
+                    <div v-for="(service, index) in state.criminalServices" :key="index">
+                        <u-service-item
+                            @click="pushToRoute('service', { type: 'criminal', path: service.path }, service.id)"
                             :serviceInfo="service" />
                     </div>
                 </div>
                 <div v-else class="services-content">
-                    <div v-for="(service, index) in state.criminalServices" :key="index">
-                        <u-service-item @click="pushToRoute('service/', `criminal/${service.path}`)"
+                    <div v-for="(service, index) in state.otherServices" :key="index">
+                        <u-service-item
+                            @click="pushToRoute('service', { type: 'other', path: service.path }, service.id)"
                             :serviceInfo="service" />
                     </div>
                 </div>
             </transition>
         </div>
     </div>
+    <u-footer :type="'child-page'" />
 </template>
 
 <style scoped>
@@ -83,6 +97,7 @@ function pushToRoute(pathName: string, routeParams: string) {
     display: flex;
     flex-flow: row wrap;
     gap: 0.52vw;
+    min-height: 26.04vw;
 }
 
 .segmented-control-wrapper {

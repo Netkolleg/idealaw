@@ -7,6 +7,21 @@ const imagesArr = [
     image1, image2, image3
 ]
 
+const advantagesArr = [
+    {
+        heading: 'Десятки успешных дел',
+        paragraph: 'Каждое дело для нас – это возможность показать мастерство и добиться справедливости.'
+    },
+    {
+        heading: 'Отлично знаем закон',
+        paragraph: 'Наши знания закона – ваша победа в деле. Доверьтесь и наша экспертиза послужит вам на благо.'
+    },
+    {
+        heading: 'Индивидуальный подход',
+        paragraph: 'Каждое дело – новая страница в истории нашей команды. Каждый клиент для нас уникален.'
+    }
+]
+
 export interface Props {
     name: string[]
 }
@@ -18,10 +33,10 @@ const props = withDefaults(defineProps<Props>(), {
 
 <template>
     <div
-        :class="[{ 'approach-wrapper': props.name?.includes('comprehensive-approach'), 'information-section': props.name?.includes('comprehensive-approach') || props.name?.includes('proven-knowledge') }]">
+        :class="[{ 'approach-wrapper': props.name?.includes('comprehensive-approach'), 'light-background': props.name?.includes('our-advantages') }, 'information-section']">
         <div class="proven-knowledge-section" v-if="props.name?.includes('proven-knowledge')">
             <div class="proven-knowledge-image">
-                <img src="../../assets/images/proven-knowledge-image.jpg" alt="">
+                <img src="../../assets/images/proven-knowledge-image.jpg" alt="Proven Knowledge Image">
             </div>
             <div class="proven-knowledge-info">
                 <h2>Проверенные знания</h2>
@@ -32,12 +47,19 @@ const props = withDefaults(defineProps<Props>(), {
         </div>
         <div class="comprehensive-approach-section" v-if="props.name?.includes('comprehensive-approach')">
             <div class="comprehensive-approach-images">
-                <img v-for="(image, index) in imagesArr" :key="index" :src="image" alt="">
+                <img v-for="(image, index) in imagesArr" :key="index" :src="image" alt="Comprehensive Approach Images">
             </div>
             <div class="comprehensive-approach-info">
                 <h2>Комплексный подход</h2>
                 <p>Мы рассматриваем ваше дело с разных сторон, объединяя опыт и знания для создания всесторонней и
                     эффективной стратегии защиты. Ваш успех — наш приоритет.</p>
+            </div>
+        </div>
+        <div class="advantages-section" v-if="props.name?.includes('our-advantages')">
+            <div v-for="(item, index) in advantagesArr" :key="index" class="advantages-info">
+                <img src="../../assets/images/grey-dot.svg" alt="Dot Icon">
+                <h2>{{ item.heading }}</h2>
+                <p>{{ item.paragraph }}</p>
             </div>
         </div>
     </div>
@@ -47,9 +69,14 @@ const props = withDefaults(defineProps<Props>(), {
 .information-section {
     width: 100%;
     min-height: 25.78vw;
-    background-color: var(--c-black);
     padding: 0 3.13vw;
     position: relative;
+    background-color: #F7F7F7;
+    background-color: var(--c-black);
+}
+
+.light-background {
+    background-color: #F7F7F7;
 }
 
 .approach-wrapper {
@@ -156,5 +183,45 @@ const props = withDefaults(defineProps<Props>(), {
 .comprehensive-approach-info p {
     font-weight: var(--regular);
     font-size: 2.08vw;
+}
+
+/* Section 3 */
+
+.advantages-section {
+    max-width: 100%;
+    height: 28.65vw;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 7.81vw;
+}
+
+.advantages-info {
+    width: 26.04vw;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    gap: 0.78vw;
+    color: var(--c-black);
+    text-align: center;
+}
+
+.advantages-info img {
+    width: 1.04vw;
+    height: 1.04vw;
+}
+
+.advantages-info h2,
+p {
+    font-size: 1.93vw;
+}
+
+.advantages-info h2 {
+    font-weight: var(--bold);
+}
+
+.advantages-info p {
+    font-weight: var(--regular);
 }
 </style>

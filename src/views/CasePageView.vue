@@ -1,40 +1,39 @@
 <script setup lang="ts">
 import { reactive, onBeforeMount, computed } from 'vue'
-import { allServices } from '../collections'
+import { cases } from '../collections'
 import DOMPurify from 'dompurify';
 import { usePreviousRoute } from '../router/index';
 
-interface Service {
+interface Case {
     id: number | null,
-    path: string
-    name: string
+    path: string,
+    title: string,
+    description: string,
     info: string
 }
 
 const state = reactive<{
     inputHTML: string | undefined,
-    service: Service | null
+    case: Case | null,
 }>({
     inputHTML: '',
-    service: {
+    case: {
         id: null,
         path: '',
-        name: '',
+        title: '',
+        description: '',
         info: ''
     }
 })
 
 const props = defineProps<{
-    id: number | null,
-    type: string | string[]
+    id: number | null
 }>()
 
 onBeforeMount(() => {
-    const tmpObj = Object.values(allServices).find(val => val.name === props.type)
-    if (tmpObj) {
-        state.service = tmpObj.services.find(el => el.id === Number(props.id)) ?? null
-        state.inputHTML = state.service?.info
-    }
+    state.case = Object.values(cases).find(el => el.id === Number(props.id)) ?? null
+
+    state.inputHTML = state.case?.info
 })
 
 const previousRoute = usePreviousRoute()
@@ -43,10 +42,10 @@ const safeHTML = computed(() => DOMPurify.sanitize(state.inputHTML))
 </script>
 
 <template>
-    <u-navheader :title="state.service?.name" :type="'child-page'" :previousRoute="previousRoute" />
+    <u-navheader :title="state.case?.title" :type="'child-page'" :previousRoute="previousRoute" />
     <div class="page-content">
-        <h2>{{ state.service?.name }}</h2>
-        <div class="page-container" v-html="safeHTML"></div>
+        <h2>{{ state.case?.title }}</h2>
+        <div v-html="safeHTML"></div>
     </div>
     <u-footer :type="'child-page'" />
 </template>

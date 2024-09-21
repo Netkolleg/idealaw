@@ -1,56 +1,8 @@
-/* import { createRouter, createWebHashHistory } from 'vue-router'
-import type { RouteRecordRaw } from 'vue-router'
-
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    name: 'main',
-    component: () => import('../views/MainView.vue'),
-    meta: { previousRoute: null }
-  },
-  {
-    path: '/services',
-    name: 'services',
-    component: () => import('../views/ServicesView.vue'),
-    meta: { previousRoute: null }
-  },
-  {
-    path: '/service/:type/:path',
-    name: 'service',
-    component: () => import('../views/ServicePageView.vue'),
-    meta: { previousRoute: null },
-    props: (route) => ({
-      path: route.params.path,
-      type: route.params.type
-    })
-  }
-]
-
-const router = createRouter({
-  history: createWebHashHistory(),
-  routes
-})
-
-router.beforeEach((to, from, next) => {
-  to.meta.previousRoute = from.fullPath
-  try {
-    const isConnected = navigator.onLine
-    if (!isConnected && to.name !== 'error') {
-      next({ name: 'error' })
-    } else if (to.matched.length === 0) {
-      next({ name: 'error' })
-    } else {
-      next()
-    }
-  } catch (error) {
-    next({ name: 'error' })
-  }
-})
-
-export default router */
-
 import { createRouter, createWebHashHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
+import { ref } from 'vue'
+
+const previousRoute = ref<string | null>(null)
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -64,6 +16,27 @@ const routes: Array<RouteRecordRaw> = [
     name: 'services',
     component: () => import('../views/ServicesView.vue'),
     meta: { scrollPosition: { x: 0, y: 0 } }
+  },
+  {
+    path: '/cases',
+    name: 'cases',
+    component: () => import('../views/CasesView.vue'),
+    meta: { scrollPosition: { x: 0, y: 0 } }
+  },
+  {
+    path: '/contacts',
+    name: 'contacts',
+    component: () => import('../views/ContactsView.vue'),
+    meta: { scrollPosition: { x: 0, y: 0 } }
+  },
+  {
+    path: '/case/:path',
+    name: 'case',
+    component: () => import('../views/CasePageView.vue'),
+    meta: { scrollPosition: { x: 0, y: 0 } },
+    props: (route) => ({
+      id: route.query.id
+    })
   },
   {
     path: '/service/:type/:path',
@@ -71,7 +44,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/ServicePageView.vue'),
     meta: { scrollPosition: { x: 0, y: 0 } },
     props: (route) => ({
-      path: route.params.path,
+      id: route.query.id,
       type: route.params.type
     })
   }
@@ -83,15 +56,16 @@ const router = createRouter({
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
-    } else if (to.meta.scrollPosition) {
-      return to.meta.scrollPosition
-    } else {
-      return { left: 0, top: 0 }
     }
+    if (to.meta.scrollPosition) {
+      return { left: to.meta.scrollPosition.x, top: to.meta.scrollPosition.y }
+    }
+    return { left: 0, top: 0 }
   }
 })
 
 router.beforeEach((to, from, next) => {
+  previousRoute.value = from.fullPath
   try {
     const isConnected = navigator.onLine
     if (!isConnected && to.name !== 'error') {
@@ -113,3 +87,4 @@ router.beforeEach((to, from, next) => {
 })
 
 export default router
+export const usePreviousRoute = () => previousRoute

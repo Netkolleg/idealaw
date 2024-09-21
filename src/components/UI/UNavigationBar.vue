@@ -44,8 +44,12 @@ async function pushToRoute(pathName: string) {
     align-items: center;
     justify-content: space-between;
     max-width: 100%;
-    margin: 2.08vw 3.13vw;
+    max-height: 7.552vw;
+    padding: 2.08vw 3.13vw;
     background-color: white;
+    /* position: sticky;
+    z-index: 4000;
+    top: 0; */
 }
 
 .logo img {

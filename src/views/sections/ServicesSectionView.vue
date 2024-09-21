@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 interface Service {
+    id: number | null,
     path: string
     name: string
     info: string
@@ -19,17 +20,20 @@ interface ServiceCategory {
 const state = reactive<{
     tab: string
     civilServices: Service[]
-    criminalServices: Service[]
+    criminalServices: Service[],
+    otherServices: Service[]
 }>({
     tab: 'civil',
     civilServices: [],
-    criminalServices: []
+    criminalServices: [],
+    otherServices: []
 })
 
 const props = defineProps<{
     services: {
         civil: ServiceCategory
-        criminal: ServiceCategory
+        criminal: ServiceCategory,
+        other: ServiceCategory
     }
 }>()
 
@@ -37,6 +41,7 @@ onBeforeMount(() => {
     if (props.services) {
         state.civilServices = props.services.civil.services.slice(0, 9) || []
         state.criminalServices = props.services.criminal.services.slice(0, 9) || []
+        state.otherServices = props.services.other.services.slice(0, 9) || []
     }
 })
 
@@ -44,18 +49,19 @@ function switchTab(name: string) {
     state.tab = name
 }
 
-function pushToRoute(pathName: string, routeParams: string) {
-    router.push({ path: `${pathName + routeParams}` })
+function pushToRoute(pathName: string, routeParams: { type: string, path: string }, id: number | null) {
+    router.push({ name: pathName, params: { type: routeParams.type, path: routeParams.path }, query: { id: id } })
 }
 </script>
 
 <template>
     <div class="services-section">
-        <u-navheader :title="'Услуги'" :type="'sections'" />
+        <u-navheader :title="'Услуги'" :type="'sections'" :path="'services'" />
         <div class="segmented-control-wrapper">
             <div class="segmented-control">
-                <button v-for="(category, index) in [props.services.civil, props.services.criminal]" :key="index"
-                    @click="switchTab(category.name)"
+                <button
+                    v-for="(category, index) in [props.services.civil, props.services.criminal, props.services.other]"
+                    :key="index" @click="switchTab(category.name)"
                     :class="[{ 'tab-active': state.tab === category.name }, 'segmented-tab']">
                     {{ category.title }}
                 </button>
@@ -64,12 +70,20 @@ function pushToRoute(pathName: string, routeParams: string) {
         <transition name="fade" mode="out-in">
             <div v-if="state.tab === 'civil'" class="services-content">
                 <div v-for="(service, index) in state.civilServices" :key="index">
-                    <u-service-item @click="pushToRoute('service/', `civil/${service.path}`)" :serviceInfo="service" />
+                    <u-service-item @click="pushToRoute('service', { type: 'civil', path: service.path }, service.id)"
+                        :serviceInfo="service" />
+                </div>
+            </div>
+            <div v-else-if="state.tab === 'criminal'" class="services-content">
+                <div v-for="(service, index) in state.criminalServices" :key="index">
+                    <u-service-item
+                        @click="pushToRoute('service', { type: 'criminal', path: service.path }, service.id)"
+                        :serviceInfo="service" />
                 </div>
             </div>
             <div v-else class="services-content">
-                <div v-for="(service, index) in state.criminalServices" :key="index">
-                    <u-service-item @click="pushToRoute('service/', `criminal/${service.path}`)"
+                <div v-for="(service, index) in state.otherServices" :key="index">
+                    <u-service-item @click="pushToRoute('service', { type: 'other', path: service.path }, service.id)"
                         :serviceInfo="service" />
                 </div>
             </div>
