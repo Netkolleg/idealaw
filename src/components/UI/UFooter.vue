@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useWindowSize } from '@/composables/useWindowSize';
+const { width } = useWindowSize()
+const isMobile = computed(() => width.value < 431)
+
 export interface Props {
     type: string[],
     needHeading: boolean
@@ -24,7 +29,8 @@ const props = withDefaults(defineProps<Props>(), {
                         <p>Понедельник-пятница</p>
                         <p>с 9:00 до 18:00</p>
                     </div>
-                    <u-button v-if="props.type.includes('child')" :title="'Связаться с нами'" :type="'filled'" />
+                    <u-button v-if="props.type.includes('child') && !isMobile" :title="'Связаться с нами'"
+                        :type="'filled'" />
                 </div>
                 <div :class="['contact-block']">
                     <div class="contact-info">
@@ -37,18 +43,19 @@ const props = withDefaults(defineProps<Props>(), {
                             <h4>По общим вопросам</h4>
                             <a href="mailto:ideaavdokat@gmail.com">ideaavdokat@gmail.com</a>
                         </div>
-                        <u-button v-if="props.type.includes('main')" :title="'Связаться с нами'" :type="'filled'" />
+                        <u-button v-if="props.type.includes('main') || isMobile" :title="'Связаться с нами'"
+                            :type="'filled'" />
                     </div>
                 </div>
             </div>
-            <div v-if="props.type.includes('main')" class="copyright">
+            <div v-if="props.type.includes('main') && !isMobile" class="copyright">
                 <p>&copy; IdeaLaw, 2024.</p>
                 <a href="https://t.me/followtotherisingsea">Связаться с разработчиком</a>
             </div>
         </address>
         <u-map :type="props.type.includes('main') ? 'large' : 'small'" />
     </footer>
-    <div v-if="props.type.includes('child')" class="copyright copyright-child">
+    <div v-if="props.type.includes('child') || isMobile" class="copyright copyright-child">
         <p>&copy; IdeaLaw, 2024.</p>
         <a href="https://t.me/followtotherisingsea">Связаться с разработчиком</a>
     </div>
@@ -63,7 +70,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 .footer-main {
     margin: 5.21vw 3.13vw 2.60vw 3.13vw;
-    min-height: 81vh;
+    /* min-height: 81vh; */
 }
 
 .footer-child {
@@ -166,5 +173,110 @@ a {
 
 .copyright p {
     color: var(--gray-additional);
+}
+
+@media screen and (max-width: 431px) {
+    .footer {
+        flex-flow: column nowrap;
+        justify-content: flex-start;
+        gap: 8.14vw;
+    }
+
+    .footer-main {
+        margin: 11.628vw 5.814vw 5.814vw 5.814vw;
+        min-height: 0;
+    }
+
+    .footer-child {
+        border-top: 1px var(--gray-border) solid;
+        padding: 5.814vw;
+        margin: 0;
+    }
+
+    .contacts {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+    }
+
+    .contact-block {
+        gap: 8.14vw;
+    }
+
+    .contacts-content h2 {
+        font-size: 9.302vw;
+    }
+
+    .contacts-content {
+        display: flex;
+        gap: 5.814vw;
+    }
+
+    .contacts-content-main {
+        flex-flow: column nowrap;
+    }
+
+    .contacts-content-child {
+        flex-flow: column nowrap;
+        justify-items: auto;
+        gap: 5.814vw;
+    }
+
+    .contacts-content h4 {
+        font-size: 3vw;
+        font-weight: var(--medium);
+        color: var(--gray-additional);
+    }
+
+    .contacts-content p,
+    a {
+        font-size: 3.488vw;
+    }
+
+    .contacts-content p {
+        font-weight: var(--medium);
+    }
+
+    .contacts-content a {
+        font-weight: var(--semibold);
+    }
+
+    .schedule-info,
+    .address-info {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 1.86vw;
+    }
+
+    .contact-info {
+        gap: 1.86vw;
+    }
+
+    .contact-info-content {
+        gap: 1.86vw;
+        margin-bottom: 5.814vw;
+    }
+
+    .copyright {
+        gap: 1vw;
+        padding-bottom: 2vw;
+    }
+
+    .copyright-child {
+        margin: 5.814vw 5.814vw 5.814vw 5.814vw;
+    }
+
+    .copyright p {
+        font-size: 3vw;
+    }
+
+    .copyright a {
+        font-weight: var(--medium);
+        font-size: 3vw;
+    }
+
+    .copyright p {
+        color: var(--gray-additional);
+    }
 }
 </style>

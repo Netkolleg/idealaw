@@ -1,4 +1,136 @@
 <script setup lang="ts">
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+
+interface Cases {
+    id: number,
+    path: string,
+    title: string,
+    description: string,
+    info: string
+}
+
+export interface Props {
+    cases: Cases[]
+}
+
+const props = defineProps<{
+    cases: Cases[]
+}>()
+
+const currentIndex = ref<number>(0);
+const itemsToShow = ref<number>(2);
+
+const carouselStyle = computed(() => ({
+    transform: `translateX(-${(currentIndex.value * (100 / itemsToShow.value))}%)`,
+    transition: 'transform 0.5s ease',
+}));
+
+const isFirst = computed(() => currentIndex.value === 0);
+const isLast = computed(() => currentIndex.value + itemsToShow.value >= props.cases.length);
+
+const next = () => {
+    if (!isLast.value) {
+        currentIndex.value += 1;
+    }
+};
+
+const prev = () => {
+    if (!isFirst.value) {
+        currentIndex.value -= 1;
+    }
+};
+
+const updateItemsToShow = () => {
+    itemsToShow.value = window.innerWidth < 431 ? 1 : 2
+};
+
+onMounted(() => {
+    window.addEventListener('resize', updateItemsToShow);
+    updateItemsToShow();
+});
+
+onBeforeUnmount(() => {
+    window.removeEventListener('resize', updateItemsToShow);
+});
+</script>
+
+<template>
+    <div class="carousel-wrapper">
+        <button class="control-button prev" @click="prev">
+            <img :class="{ 'disabled': isFirst }" src="../../assets/icons/prev.svg" alt="Previous">
+        </button>
+
+        <div class="carousel">
+            <div class="carousel-container" :style="carouselStyle">
+                <div class="carousel-item" v-for="(caseItem, index) in props.cases" :key="index">
+                    <u-case-item class="case-item" :caseInfo="caseItem" />
+                </div>
+            </div>
+        </div>
+
+        <button class="control-button next" @click="next">
+            <img :class="{ 'disabled': isLast }" src="../../assets/icons/next.svg" alt="Next">
+        </button>
+    </div>
+</template>
+
+<style scoped>
+.carousel-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    justify-content: center;
+}
+
+.carousel {
+    overflow: hidden;
+    width: 100%;
+}
+
+.carousel-container {
+    display: flex;
+    width: 100%;
+}
+
+.carousel-item {
+    flex: 0 0 calc(100% / 2);
+    box-sizing: border-box;
+    padding: 10px;
+    transition: flex 0.5s ease;
+}
+
+.control-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.control-button img {
+    width: 2vw;
+    height: auto;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.disabled {
+    opacity: 0.2;
+    cursor: none;
+}
+
+@media screen and (max-width: 431px) {
+    .carousel-item {
+        flex: 0 0 100%;
+    }
+
+    .control-button img {
+        width: 4.651vw;
+    }
+}
+</style>
+
+
+<!-- <script setup lang="ts">
 import { ref, computed } from 'vue';
 
 interface Cases {
@@ -84,7 +216,7 @@ const prev = () => {
 
 .control-button {
     background-color: #fff;
-    z-index: 2999;
+    z-index: 2997;
     cursor: pointer;
 }
 
@@ -98,4 +230,4 @@ const prev = () => {
     transition: 0.4s opacity ease-in-out;
     opacity: 0.25;
 }
-</style>
+</style> -->

@@ -31,11 +31,4 @@ watch(() => route.fullPath, () => {
   </div>
 </template>
 
-<style>
-/* .main-wrapper {
-  min-height: 100vh;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-between;
-} */
-</style>
+<style></style>

@@ -55,7 +55,7 @@ const safeHTML = computed(() => DOMPurify.sanitize(state.inputHTML))
     display: flex;
     flex-flow: column wrap;
     gap: 2.083vw;
-    margin: 0vw 3.13vw 2.60vw 3.13vw;
+    margin: 0vw 3.13vw 3.13vw 3.13vw;
     color: var(--c-black);
     min-height: 31.25vw;
 }
@@ -75,7 +75,7 @@ const safeHTML = computed(() => DOMPurify.sanitize(state.inputHTML))
 .page-container {
     display: flex;
     flex-flow: column wrap;
-    gap: 1.563vw;
+    gap: 2.5vw;
 }
 
 .page-container h2,
@@ -89,5 +89,59 @@ const safeHTML = computed(() => DOMPurify.sanitize(state.inputHTML))
 .page-container li {
     font-size: 1.563vw;
     font-weight: var(--regular);
+}
+
+.page-container ul {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1.5vw;
+    padding-left: 2vw;
+    margin-top: 1vw;
+}
+
+@media screen and (max-width: 431px) {
+    .page-content {
+        gap: 3.488vw;
+        margin: 5.814vw 5.814vw 5.814vw 5.814vw;
+        min-height: 81.395vw;
+    }
+
+    .page-content h2:nth-of-type(1) {
+        font-size: 5.116vw;
+        font-weight: var(--bold);
+        /* margin-bottom: 1.563vw; */
+    }
+
+    .page-content p {
+        font-size: 3.5vw;
+        font-weight: var(--medium);
+        /* margin-bottom: 1.042vw; */
+    }
+
+    .page-container {
+        display: flex;
+        flex-flow: column wrap;
+        gap: 4vw;
+    }
+
+    .page-container h2,
+    .page-container h3 {
+        font-size: 4.716vw !important;
+        font-weight: var(--bold);
+        margin-bottom: 3.042vw;
+    }
+
+    .page-container ul {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 3vw;
+        padding-left: 4vw;
+        margin-top: 3.5vw;
+    }
+
+    .page-container p,
+    .page-container li {
+        font-size: 3.5vw;
+    }
 }
 </style>

@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { reactive, onBeforeMount } from 'vue'
+import { reactive, onBeforeMount, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useWindowSize } from '@/composables/useWindowSize';
 
+const { width } = useWindowSize()
+const isMobile = computed(() => width.value < 431)
 const router = useRouter()
 
 const state = reactive<{
@@ -26,7 +29,7 @@ const props = withDefaults(defineProps<Props>(), {
     previousRoute: ''
 })
 
-onBeforeMount(async () => {
+onBeforeMount(() => {
     state.currentPath = props.title
     if (props.previousRoute && props.previousRoute !== '/') {
         if (props.previousRoute === '/services') {
@@ -46,12 +49,11 @@ async function pushToRoute(path: string, routeParams?: string) {
         router.go(-1)
     }
 }
-
 </script>
 
 <template>
     <div v-if="props.type.includes('sections')" class="navheader">
-        <span></span>
+        <span v-if="!isMobile"></span>
         <h2>{{ props.title }}</h2>
         <span class="all-btn" @click="pushToRoute(props.path)">Все<img src="../../assets/icons/arrow.svg"
                 alt="Arrow Icon"></span>
@@ -136,5 +138,43 @@ async function pushToRoute(path: string, routeParams?: string) {
 
 .previous {
     color: var(--gray-additional);
+}
+
+@media screen and (max-width: 431px) {
+    .navheader h2 {
+        font-size: 9.302vw;
+        margin-left: 0;
+    }
+
+    .all-btn {
+        gap: 2.326vw;
+        font-size: 4.884vw;
+    }
+
+    .all-btn img {
+        width: 4.884vw;
+        height: 4.884vw;
+    }
+
+    .page-navheader {
+        align-items: center;
+        margin: 5.814vw;
+    }
+
+    .back-btn {
+        flex-flow: column nowrap;
+        align-items: flex-start;
+        gap: 5.814vw;
+    }
+
+    .back-btn img {
+        width: 4.884vw;
+        height: 4.884vw;
+    }
+
+    .breadcrumbs {
+        gap: 1vw;
+        font-size: 3.488vw;
+    }
 }
 </style>

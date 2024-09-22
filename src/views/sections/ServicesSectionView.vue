@@ -37,11 +37,11 @@ const props = defineProps<{
     }
 }>()
 
-onBeforeMount(() => {
+onBeforeMount(async () => {
     if (props.services) {
-        state.civilServices = props.services.civil.services.slice(0, 9) || []
-        state.criminalServices = props.services.criminal.services.slice(0, 9) || []
-        state.otherServices = props.services.other.services.slice(0, 9) || []
+        state.civilServices = await props.services.civil.services.slice(0, 9) || []
+        state.criminalServices = await props.services.criminal.services.slice(0, 9) || []
+        state.otherServices = await props.services.other.services.slice(0, 9) || []
     }
 })
 
@@ -120,7 +120,7 @@ function pushToRoute(pathName: string, routeParams: { type: string, path: string
     flex-flow: row nowrap;
     justify-content: center;
     min-width: 26.04vw;
-    height: 3.59vw;
+    height: 4.5vw;
     background-color: white;
     border: 1px var(--gray-border) solid;
     border-radius: 50vw;
@@ -143,6 +143,47 @@ function pushToRoute(pathName: string, routeParams: { type: string, path: string
     outline: 2px var(--c-black) solid;
     background-color: white;
     transition: transform 0.4s ease, color 0.4s ease;
+}
+
+@media screen and (max-width: 431px) {
+    .services-section {
+        max-width: 100%;
+        gap: 5.814vw;
+        margin: 11.628vw 5.814vw;
+    }
+
+    .services-content {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 2.326vw;
+        min-height: 63.953vw;
+    }
+
+    .segmented-control-wrapper {
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+    }
+
+    .segmented-control {
+        min-width: 100%;
+        height: fit-content;
+    }
+
+    .segmented-tab {
+        width: 100%;
+        height: 10.465vw;
+        padding: 0 3.488vw;
+        font-size: 3.023vw;
+    }
+
+    .tab-active {
+        width: 100%;
+        height: 10.465vw;
+        padding: 0 3.488vw;
+        font-size: 3.023vw;
+    }
 }
 
 .fade-enter-active,
