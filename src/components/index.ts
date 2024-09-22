@@ -7,6 +7,7 @@ import UNavHeader from './UI/UNavHeader.vue'
 import UCarousel from './UI/UCarousel.vue'
 import UMap from './UI/UMap.vue'
 import UFooter from './UI/UFooter.vue'
+import UMobileMenu from './UI/UMobileMenu.vue'
 
 const components = [
   {
@@ -40,6 +41,10 @@ const components = [
   {
     name: 'u-footer',
     component: UFooter
+  },
+  {
+    name: 'u-mobile-menu',
+    component: UMobileMenu
   }
 ]
 

@@ -138,6 +138,50 @@ function pushToRoute(pathName: string, routeParams: { type: string, path: string
     transition: transform 0.4s ease, color 0.4s ease;
 }
 
+@media screen and (max-width: 431px) {
+    .services-wrapper {
+        gap: 5.814vw;
+        margin: 5.814vw;
+    }
+
+    .services-section {
+        gap: 5.814vw;
+    }
+
+    .services-content {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 2.326vw;
+        min-height: 63.953vw;
+    }
+
+    .segmented-control-wrapper {
+        width: 100%;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+    }
+
+    .segmented-control {
+        min-width: 100%;
+        height: fit-content;
+    }
+
+    .segmented-tab {
+        width: 100%;
+        height: 10.465vw;
+        padding: 0 3.488vw;
+        font-size: 3.023vw;
+    }
+
+    .tab-active {
+        width: 100%;
+        height: 10.465vw;
+        padding: 0 3.488vw;
+        font-size: 3.023vw;
+    }
+}
+
 .fade-enter-active,
 .fade-leave-active {
     transition: opacity 0.4s;

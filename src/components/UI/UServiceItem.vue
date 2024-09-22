@@ -61,10 +61,13 @@ const showDot = ref(false)
     flex-flow: row nowrap;
     align-items: flex-start;
     width: 24vw;
-    font-weight: var(--medium);
     font-size: 1.56vw;
     color: var(--c-black);
     transition: opacity 0.4s ease-in-out;
+}
+
+.service-item span {
+    font-weight: var(--medium);
 }
 
 .service-item-icon {
@@ -77,6 +80,41 @@ const showDot = ref(false)
     opacity: 0;
     height: auto;
     transition: opacity 0.4s ease-in-out;
+}
+
+/* Mobile */
+
+@media screen and (max-width: 431px) {
+    .service-item {
+        width: 42.923vw;
+        height: 19.722vw;
+        padding: 2.32vw 2.32vw 0 2.32vw;
+    }
+
+    .service-item::before {
+        opacity: 0;
+    }
+
+    .service-item:hover::before {
+        background-size: 100%;
+    }
+
+    .service-item h3 {
+        width: 32.558vw;
+        font-size: 2.791vw;
+    }
+
+    .service-item span {
+        font-weight: var(--semibold);
+    }
+
+    .service-item-icon {
+        width: 3vw;
+    }
+
+    .dot {
+        opacity: 0;
+    }
 }
 
 .show {

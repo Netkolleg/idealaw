@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 interface Cases {
     id: number,
     path: string,
@@ -21,6 +22,9 @@ const props = defineProps<{
 
 <style scoped>
 .carousel-section {
-    margin: 5.21vw 3.13vw;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 8.14vw;
+    margin: 11.628vw 5.814vw;
 }
 </style>

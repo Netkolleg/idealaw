@@ -143,7 +143,7 @@ const props = withDefaults(defineProps<Props>(), {
     flex-flow: row nowrap;
     align-items: center;
     position: absolute;
-    z-index: 2999;
+    z-index: 2998;
     right: 0;
     bottom: 0;
     overflow: hidden;
@@ -170,7 +170,7 @@ const props = withDefaults(defineProps<Props>(), {
     justify-items: flex-start;
     gap: 0.52vw;
     max-width: 47.92vw;
-    z-index: 3000;
+    z-index: 2998;
 }
 
 .comprehensive-approach-info h2 {
@@ -223,5 +223,107 @@ p {
 
 .advantages-info p {
     font-weight: var(--regular);
+}
+
+@media screen and (max-width: 431px) {
+    .information-section {
+        width: 100%;
+        min-height: auto;
+        padding: 0 0;
+    }
+
+    .approach-wrapper {
+        padding: 0 0 0 0;
+    }
+
+    .proven-knowledge-section {
+        height: auto;
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 11.628vw;
+        padding: 10.465vw 0;
+    }
+
+    .proven-knowledge-image {
+        width: 100%;
+        margin-right: 5vw;
+    }
+
+    .proven-knowledge-image img {
+        height: auto;
+        mask-size: 104.651vw;
+    }
+
+    .proven-knowledge-info {
+        gap: 2.326vw;
+        min-width: auto;
+        margin: 0 11.628vw;
+    }
+
+    .proven-knowledge-info h2 {
+        font-size: 9.302vw;
+    }
+
+    .proven-knowledge-info p {
+        font-size: 4.651vw;
+    }
+
+    /* Section 2 */
+
+    .comprehensive-approach-section {
+        height: 100%;
+        gap: 6.25vw;
+        padding: 18.605vw 10.465vw;
+    }
+
+    .comprehensive-approach-images {
+        width: 69.767vw;
+        height: 23.256vw;
+    }
+
+    .comprehensive-approach-images img {
+        width: 23.256vw;
+    }
+
+    .comprehensive-approach-images img:nth-child(1) {
+        height: 23.256vw;
+    }
+
+    .comprehensive-approach-info {
+        gap: 2.326vw;
+        max-width: 100%;
+    }
+
+    .comprehensive-approach-info h2 {
+        font-size: 9.302vw;
+    }
+
+    .comprehensive-approach-info p {
+        font-size: 4.651vw;
+    }
+
+    /* Section 3 */
+
+    .advantages-section {
+        height: auto;
+        flex-flow: column nowrap;
+        gap: 11.628vw;
+        padding: 11.628vw 5.814vw;
+    }
+
+    .advantages-info {
+        width: 100%;
+        gap: 2.326vw;
+    }
+
+    .advantages-info img {
+        width: 2.791vw;
+        height: 2.791vw;
+    }
+
+    .advantages-info h2,
+    p {
+        font-size: 5.116vw;
+    }
 }
 </style>

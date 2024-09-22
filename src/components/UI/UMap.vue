@@ -74,4 +74,26 @@ onMounted(() => {
 .leaflet-container {
     filter: grayscale(100%);
 }
+
+@media screen and (max-width: 431px) {
+    .map-container {
+        border-radius: 6.977vw;
+    }
+
+    .small {
+        width: 88.372vw;
+        height: 88.372vw;
+        border-radius: 6.977vw;
+    }
+
+    .large {
+        height: 88.372vw;
+        width: 88.372vw;
+    }
+
+    .leaflet-marker-icon {
+        width: 12.093vw !important;
+        height: 15.116vw !important;
+    }
+}
 </style>

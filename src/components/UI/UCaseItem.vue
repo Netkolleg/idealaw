@@ -90,4 +90,38 @@ p {
     padding: 0;
     cursor: pointer;
 }
+
+@media screen and (max-width: 431px) {
+    .case-item {
+        min-height: 45.349vw;
+        gap: 2.60vw;
+        padding: 3.488vw;
+        border-radius: 0;
+    }
+
+    .case-item:hover {
+        background-color: #F7F7F7;
+        transition: 0.4s ease-in-out;
+    }
+
+    .case-content {
+        gap: 2.60vw;
+    }
+
+    .case-content span {
+        font-size: 3.488vw;
+    }
+
+    .case-content h2 {
+        font-size: 3.488vw;
+    }
+
+    .case-content p {
+        font-size: 2.326vw;
+    }
+
+    .more-btn {
+        font-size: 3.023vw;
+    }
+}
 </style>

@@ -88,4 +88,85 @@
 .images img:nth-child(2) {
     width: 24.22vw;
 }
+
+@media screen and (max-width: 431px) {
+    .welcome-section {
+        flex-flow: column nowrap;
+        align-items: center;
+        max-width: 100%;
+        height: 155.814vw;
+        margin: 0;
+        padding: 11.628vw 5.814vw;
+        gap: 6.977vw;
+    }
+
+    .info-block {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 6.977vw;
+        z-index: 2996;
+    }
+
+    .info-content div {
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 0.26vw;
+    }
+
+    .info-content h4 {
+        font-size: 3.488vw;
+    }
+
+    .info-content h1 {
+        font-weight: var(--bold);
+        font-size: 16.279vw;
+    }
+
+    .info-content p {
+        font-weight: var(--medium);
+        font-size: 4.651vw;
+        color: var(--gray-additional);
+    }
+
+    .info-content h4,
+    .info-content p {
+        margin-left: 1.1vw;
+    }
+
+    .contact-btn {
+        margin-left: 1.1vw;
+    }
+
+    .welcome-images {
+        width: 100%;
+        height: 79.07vw;
+        position: relative;
+        overflow: visible;
+    }
+
+    .images {
+        width: 100%;
+        height: 79.07vw;
+        position: absolute;
+        z-index: 2995;
+    }
+
+    .welcome-images .images {
+        display: flex;
+        flex-flow: row-reverse nowrap;
+        align-items: center;
+        justify-items: center;
+        gap: 13.953vw;
+    }
+
+    .images img:nth-child(2) {
+        width: 51.163vw;
+    }
+
+    .images img:nth-child(1) {
+        width: 23.256vw;
+    }
+}
 </style>

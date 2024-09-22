@@ -47,4 +47,21 @@ const props = withDefaults(defineProps<Props>(), {
     outline: 1px solid var(--c-black);
     transition: 0.45s linear;
 }
+
+@media screen and (max-width: 431px) {
+    .outline {
+        font-size: 4.651vw;
+        padding: 4.651vw 9.302vw;
+    }
+
+    .outline:hover {
+        background-color: white;
+        outline: 1px solid var(--gray-border);
+    }
+
+    .filled {
+        font-size: 3.488vw;
+        padding: 3.953vw 5.116vw;
+    }
+}
 </style>
