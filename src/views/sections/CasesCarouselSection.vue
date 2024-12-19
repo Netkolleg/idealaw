@@ -9,12 +9,13 @@ interface Cases {
 }
 
 const props = defineProps<{
-    cases: Cases[]
+    cases: Cases[],
+    show: boolean
 }>()
 </script>
 
 <template>
-    <div class="carousel-section">
+    <div v-if="props.show" class="carousel-section">
         <u-navheader :type="'sections'" :title="'Кейсы'" :path="'cases'" />
         <u-carousel :cases="props.cases.length >= 5 ? props.cases.slice(0, 5) : props.cases" />
     </div>

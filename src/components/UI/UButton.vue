@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 export interface Props {
     title: string,
     type: string[]
@@ -8,17 +10,20 @@ const props = withDefaults(defineProps<Props>(), {
     title: 'Связаться',
     type: () => ['filled', 'outline']
 })
+
+const whatsappLink = ref<string>('https://wa.me/996502204402')
 </script>
 
 <template>
-    <button :class="[props.type.includes('filled') ? 'filled' : 'outline', 'btn']">
+    <a :href="whatsappLink" target="_blank" rel="noopener noreferrer"
+        :class="[props.type.includes('filled') ? 'filled' : 'outline', 'btn']">
         {{ props.title }}
-    </button>
+    </a>
 </template>
 
 <style scoped>
 .btn {
-    all: unset;
+    /* all: unset; */
     width: fit-content;
     display: inline-block;
     cursor: pointer;

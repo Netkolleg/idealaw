@@ -6,12 +6,14 @@ const isMobile = computed(() => width.value < 431)
 
 export interface Props {
     type: string[],
-    needHeading: boolean
+    needHeading: boolean,
+    show: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
     type: () => ['main', 'child-page'],
-    needHeading: true
+    needHeading: true,
+    show: false
 })
 </script>
 <template>

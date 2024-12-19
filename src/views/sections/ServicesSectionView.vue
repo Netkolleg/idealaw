@@ -34,7 +34,8 @@ const props = defineProps<{
         civil: ServiceCategory
         criminal: ServiceCategory,
         other: ServiceCategory
-    }
+    },
+    show: boolean
 }>()
 
 onBeforeMount(async () => {
@@ -55,7 +56,7 @@ function pushToRoute(pathName: string, routeParams: { type: string, path: string
 </script>
 
 <template>
-    <div class="services-section">
+    <div v-if="props.show" class="services-section">
         <u-navheader :title="'Услуги'" :type="'sections'" :path="'services'" />
         <div class="segmented-control-wrapper">
             <div class="segmented-control">

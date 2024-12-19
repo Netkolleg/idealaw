@@ -22,19 +22,25 @@ const advantagesArr = [
     }
 ]
 
-export interface Props {
-    name: string[]
+interface Props {
+    name: string[],
+    section1Show: boolean,
+    section2Show: boolean,
+    section3Show: boolean,
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    name: () => ['proven-knowledge', 'comprehensive-approach', 'our-advantages']
+    name: () => ['proven-knowledge', 'comprehensive-approach', 'our-advantages'],
+    section1Show: false,
+    section2Show: false,
+    section3Show: false,
 })
 </script>
 
 <template>
     <div
         :class="[{ 'approach-wrapper': props.name?.includes('comprehensive-approach'), 'light-background': props.name?.includes('our-advantages') }, 'information-section']">
-        <div class="proven-knowledge-section" v-if="props.name?.includes('proven-knowledge')">
+        <div class="proven-knowledge-section" v-if="props.name?.includes('proven-knowledge') && props.section1Show">
             <div class="proven-knowledge-image fadeImage">
                 <img src="../../assets/images/proven-knowledge-image.jpg" alt="Proven Knowledge Image">
             </div>
@@ -46,7 +52,8 @@ const props = withDefaults(defineProps<Props>(), {
                     юристы подходят с глубокой экспертизой и знаниями, проверенными временем.</p>
             </div>
         </div>
-        <div class="comprehensive-approach-section" v-if="props.name?.includes('comprehensive-approach')">
+        <div class="comprehensive-approach-section"
+            v-if="props.name?.includes('comprehensive-approach') && props.section2Show">
             <div class="comprehensive-approach-images">
                 <img class="translateImage" v-for="(image, index) in imagesArr" :key="index" :src="image"
                     alt="Comprehensive Approach Images">
@@ -58,7 +65,7 @@ const props = withDefaults(defineProps<Props>(), {
                     эффективной стратегии защиты. Ваш успех — наш приоритет.</p>
             </div>
         </div>
-        <div class="advantages-section" v-if="props.name?.includes('our-advantages')">
+        <div class="advantages-section" v-if="props.name?.includes('our-advantages') && props.section3Show">
             <div v-for="(item, index) in advantagesArr" :key="index" class="advantages-info">
                 <img class="fadeInDownInfoDelay2" src="../../assets/images/grey-dot.svg" alt="Dot Icon">
                 <h2 class="fadeInDownInfoDelay">{{ item.heading }}</h2>

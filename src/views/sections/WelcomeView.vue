@@ -1,8 +1,11 @@
 <script setup lang="ts">
+const props = defineProps<{
+    show: boolean
+}>()
 </script>
 
 <template>
-    <div class="welcome-section">
+    <div v-if="props.show" class="welcome-section">
         <div class="info-block">
             <div class="info-content">
                 <h4 class="fadeInDownInfoDelay">Юридическая проблема?</h4>
