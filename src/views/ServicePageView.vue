@@ -3,6 +3,12 @@ import { reactive, onBeforeMount, computed } from 'vue'
 import { allServices } from '../collections'
 import DOMPurify from 'dompurify';
 import { usePreviousRoute } from '../router/index';
+import { useRouter } from 'vue-router'
+import { useHead } from '@vueuse/head'
+
+import metaImage from '../assets/meta-images/services-image.jpg'
+
+const router = useRouter()
 
 interface Service {
     id: number | null,
@@ -39,7 +45,21 @@ onBeforeMount(() => {
 
 const previousRoute = usePreviousRoute()
 
+const title = computed(() => state.service?.name || '')
 const safeHTML = computed(() => DOMPurify.sanitize(state.inputHTML))
+
+useHead({
+    title: computed(() => `${title.value} – Idea Group`),
+    meta: [
+        { name: 'description', content: computed(() => `${title.value}`) },
+        { property: 'og:title', content: computed(() => `${title.value}`) },
+        { property: 'og:description', content: 'Гражданские, уголовные, административные и другие услуги.' },
+        { property: 'og:image', content: computed(() => `${metaImage}`) },
+        { property: 'og:url', content: computed(() => `${router.currentRoute}`) },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:site_name', content: 'Idea Group – Юридическая компания' },
+    ]
+});
 </script>
 
 <template>

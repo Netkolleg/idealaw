@@ -19,43 +19,43 @@ const props = withDefaults(defineProps<Props>(), {
         <address :class="[props.type.includes('main') ? 'contacts' : 'contacts-child']">
             <div
                 :class="[props.type.includes('main') ? 'contacts-content-main' : 'contacts-content-child', 'contacts-content']">
-                <h2 v-if="props.type.includes('main') && props.needHeading">Контакты</h2>
+                <h2 v-if="props.type.includes('main') && props.needHeading" class="fadeInDownInfoDelay">Контакты</h2>
                 <div :class="['contact-block']">
-                    <div class="address-info">
+                    <div class="address-info fadeInDownInfo">
                         <p>г. Бишкек, ул. Манаса 41а</p>
                         <p>Бизнес-центр “Адмирал”, 9 этаж</p>
                     </div>
-                    <div class="schedule-info">
+                    <div class="schedule-info fadeInDownInfo">
                         <p>Понедельник-пятница</p>
                         <p>с 9:00 до 18:00</p>
                     </div>
-                    <u-button v-if="props.type.includes('child') && !isMobile" :title="'Связаться с нами'"
-                        :type="'filled'" />
+                    <u-button class="fadeInDownInfo" v-if="props.type.includes('child') && !isMobile"
+                        :title="'Связаться с нами'" :type="'filled'" />
                 </div>
                 <div :class="['contact-block']">
-                    <div class="contact-info">
+                    <div class="contact-info fadeInDownInfo">
                         <h4>На связи в любое время</h4>
                         <a href="tel:+996502204402">0(502) 204-402</a>
                         <a href="tel:+996702204402">0(504) 204-402</a>
                     </div>
-                    <div class="contact-info">
+                    <div class="contact-info fadeInDownInfo">
                         <div class="contact-info-content">
                             <h4>По общим вопросам</h4>
                             <a href="mailto:ideaavdokat@gmail.com">ideaavdokat@gmail.com</a>
                         </div>
-                        <u-button v-if="props.type.includes('main') || isMobile" :title="'Связаться с нами'"
-                            :type="'filled'" />
+                        <u-button class="fadeInDownInfo" v-if="props.type.includes('main') || isMobile"
+                            :title="'Связаться с нами'" :type="'filled'" />
                     </div>
                 </div>
             </div>
-            <div v-if="props.type.includes('main') && !isMobile" class="copyright">
+            <div v-if="props.type.includes('main') && !isMobile" class="copyright fadeInDownInfo">
                 <p>&copy; IdeaLaw, 2024.</p>
                 <a href="https://t.me/followtotherisingsea">Связаться с разработчиком</a>
             </div>
         </address>
-        <u-map :type="props.type.includes('main') ? 'large' : 'small'" />
+        <u-map class="fadeInDownInfoDelay" :type="props.type.includes('main') ? 'large' : 'small'" />
     </footer>
-    <div v-if="props.type.includes('child') || isMobile" class="copyright copyright-child">
+    <div v-if="props.type.includes('child') || isMobile" class="copyright copyright-child fadeInDownInfo">
         <p>&copy; IdeaLaw, 2024.</p>
         <a href="https://t.me/followtotherisingsea">Связаться с разработчиком</a>
     </div>
@@ -278,5 +278,38 @@ a {
     .copyright p {
         color: var(--gray-additional);
     }
+}
+
+/* Text animation */
+@keyframes fadeInDownInfo {
+    from {
+        opacity: 0;
+        transform: translateY(-40%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fadeInDownInfo {
+    animation: fadeInDownInfo 1.5s ease-in-out forwards;
+}
+
+@keyframes fadeInDownInfoDelay {
+    from {
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fadeInDownInfoDelay {
+    animation: fadeInDownInfoDelay 2s ease-in-out forwards;
 }
 </style>

@@ -52,13 +52,13 @@ async function pushToRoute(path: string, routeParams?: string) {
 </script>
 
 <template>
-    <div v-if="props.type.includes('sections')" class="navheader">
+    <div v-if="props.type.includes('sections')" class="navheader fadeInDown">
         <span v-if="!isMobile"></span>
         <h2>{{ props.title }}</h2>
         <span class="all-btn" @click="pushToRoute(props.path)">Все<img src="../../assets/icons/arrow.svg"
                 alt="Arrow Icon"></span>
     </div>
-    <div v-if="props.type.includes('child-page')" class="page-navheader">
+    <div v-if="props.type.includes('child-page')" class="page-navheader fadeInDown">
         <div class="back-btn">
             <img @click="pushToRoute('back')" src="../../assets/icons/back.svg" alt="Arrow Icon">
             <div class="breadcrumbs">
@@ -176,5 +176,21 @@ async function pushToRoute(path: string, routeParams?: string) {
         gap: 1vw;
         font-size: 3.488vw;
     }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fadeInDown {
+    animation: fadeInDown 1s ease-in-out forwards;
 }
 </style>

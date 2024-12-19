@@ -3,6 +3,12 @@ import { reactive, onBeforeMount, computed } from 'vue'
 import { cases } from '../collections'
 import DOMPurify from 'dompurify';
 import { usePreviousRoute } from '../router/index';
+import { useHead } from '@vueuse/head';
+import { useRouter } from 'vue-router'
+
+import metaImage from '../assets/meta-images/cases-image.jpg'
+
+const router = useRouter()
 
 interface Case {
     id: number | null,
@@ -39,6 +45,21 @@ onBeforeMount(() => {
 const previousRoute = usePreviousRoute()
 
 const safeHTML = computed(() => DOMPurify.sanitize(state.inputHTML))
+const title = computed(() => state.case?.title || '')
+const description = computed(() => state.case?.description || '')
+
+useHead({
+    title: computed(() => `${title.value} – Idea Group`),
+    meta: [
+        { name: 'description', content: computed(() => `${description.value}`) },
+        { property: 'og:title', content: computed(() => `${title.value} – Idea Group`) },
+        { property: 'og:description', content: computed(() => `${description.value}`) },
+        { property: 'og:image', content: computed(() => `${metaImage}`) },
+        { property: 'og:url', content: computed(() => `${router.currentRoute}`) },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:site_name', content: 'Idea Group – Юридическая компания' },
+    ]
+});
 </script>
 
 <template>

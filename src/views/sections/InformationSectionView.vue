@@ -35,31 +35,34 @@ const props = withDefaults(defineProps<Props>(), {
     <div
         :class="[{ 'approach-wrapper': props.name?.includes('comprehensive-approach'), 'light-background': props.name?.includes('our-advantages') }, 'information-section']">
         <div class="proven-knowledge-section" v-if="props.name?.includes('proven-knowledge')">
-            <div class="proven-knowledge-image">
+            <div class="proven-knowledge-image fadeImage">
                 <img src="../../assets/images/proven-knowledge-image.jpg" alt="Proven Knowledge Image">
             </div>
             <div class="proven-knowledge-info">
-                <h2>Проверенные знания</h2>
-                <p>Мы применяем исключительно эффективные и надежные методики в нашей юридической практике. К каждому
+                <h2 class="fadeInDownInfoDelay">Проверенные знания</h2>
+                <p class="fadeInDownInfo">Мы применяем исключительно эффективные и надежные методики в нашей юридической
+                    практике. К каждому
                     делу
                     юристы подходят с глубокой экспертизой и знаниями, проверенными временем.</p>
             </div>
         </div>
         <div class="comprehensive-approach-section" v-if="props.name?.includes('comprehensive-approach')">
             <div class="comprehensive-approach-images">
-                <img v-for="(image, index) in imagesArr" :key="index" :src="image" alt="Comprehensive Approach Images">
+                <img class="translateImage" v-for="(image, index) in imagesArr" :key="index" :src="image"
+                    alt="Comprehensive Approach Images">
             </div>
             <div class="comprehensive-approach-info">
-                <h2>Комплексный подход</h2>
-                <p>Мы рассматриваем ваше дело с разных сторон, объединяя опыт и знания для создания всесторонней и
+                <h2 class="fadeInDownInfoDelay">Комплексный подход</h2>
+                <p class="fadeInDownInfo">Мы рассматриваем ваше дело с разных сторон, объединяя опыт и знания для
+                    создания всесторонней и
                     эффективной стратегии защиты. Ваш успех — наш приоритет.</p>
             </div>
         </div>
         <div class="advantages-section" v-if="props.name?.includes('our-advantages')">
             <div v-for="(item, index) in advantagesArr" :key="index" class="advantages-info">
-                <img src="../../assets/images/grey-dot.svg" alt="Dot Icon">
-                <h2>{{ item.heading }}</h2>
-                <p>{{ item.paragraph }}</p>
+                <img class="fadeInDownInfoDelay2" src="../../assets/images/grey-dot.svg" alt="Dot Icon">
+                <h2 class="fadeInDownInfoDelay">{{ item.heading }}</h2>
+                <p class="fadeInDownInfo">{{ item.paragraph }}</p>
             </div>
         </div>
     </div>
@@ -325,5 +328,88 @@ p {
     p {
         font-size: 5.116vw;
     }
+}
+
+/* Animations */
+
+/* Text animation */
+@keyframes fadeInDownInfo {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fadeInDownInfo {
+    animation: fadeInDownInfo 2s ease-in-out forwards;
+}
+
+@keyframes fadeInDownInfoDelay {
+    from {
+        opacity: 0;
+        transform: translateY(-300%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fadeInDownInfoDelay {
+    animation: fadeInDownInfoDelay 2s ease-in-out forwards;
+}
+
+@keyframes fadeInDownInfoDelay2 {
+    from {
+        opacity: 0;
+        transform: translateY(-400%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fadeInDownInfoDelay2 {
+    animation: fadeInDownInfoDelay2 3s ease-in-out forwards;
+}
+
+/* Illustration Animation */
+
+@keyframes fadeInDownIllustration {
+    from {
+        mask-position: 0 -200%;
+    }
+
+    to {
+        mask-position: 0 0%;
+    }
+}
+
+.fadeImage img {
+    animation: fadeInDownIllustration 2s ease-in-out forwards;
+}
+
+@keyframes translateImage {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
+
+.translateImage {
+    animation: translateImage 2s ease-in-out forwards;
 }
 </style>

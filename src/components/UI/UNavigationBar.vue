@@ -48,10 +48,10 @@ const toggleMenu = (show?: boolean) => {
 
 <template>
     <header :class="[{ 'header-fixed': state.showMenu }, 'header']">
-        <div class="logo">
+        <div class="logo fadeInDown">
             <img src="../../assets/logo.svg" alt="IdeaLaw Logo">
         </div>
-        <div v-if="!isMobile" class="links">
+        <div v-if="!isMobile" class="links fadeInDown">
             <span class="link" v-for="link, index in linksArr" :key="index" @click="pushToRoute(link.path)">{{
                 link.title }}</span>
             <u-button :type="'outline'" />
@@ -126,5 +126,21 @@ const toggleMenu = (show?: boolean) => {
         width: 30.233vw;
         height: auto;
     }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fadeInDown {
+    animation: fadeInDown 1s ease-in-out forwards;
 }
 </style>

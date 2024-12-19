@@ -7,7 +7,8 @@
     "src/views/sections/**/*",
     "src/**/*.ts",
     "src/**/*.d.ts",
-    "src/**/*.tsx"
+    "src/**/*.tsx",
+    "*.jpg"
   ],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {

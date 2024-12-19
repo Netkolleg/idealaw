@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { reactive, onBeforeMount } from 'vue'
+import { reactive, onBeforeMount, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { allServices } from '../collections'
+import { useHead } from '@vueuse/head';
+
+import metaImage from '../assets/meta-images/services-image.jpg'
 
 const router = useRouter()
 
@@ -37,6 +40,19 @@ function switchTab(name: string) {
 function pushToRoute(pathName: string, routeParams: { type: string, path: string }, id: number | null) {
     router.push({ name: pathName, params: { type: routeParams.type, path: routeParams.path }, query: { id: id } })
 }
+
+useHead({
+    title: 'Юридические услуги – Idea Group',
+    meta: [
+        { name: 'description', content: 'Гражданские, уголовные, административные и другие услуги.' },
+        { property: 'og:title', content: 'Юридические услуги – Idea Group' },
+        { property: 'og:description', content: 'Гражданские, уголовные, административные и другие услуги.' },
+        { property: 'og:image', content: computed(() => `${metaImage}`) },
+        { property: 'og:url', content: computed(() => `${router.currentRoute}`) },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:site_name', content: 'Idea Group – Юридическая компания' },
+    ]
+});
 </script>
 
 <template>
@@ -44,7 +60,7 @@ function pushToRoute(pathName: string, routeParams: { type: string, path: string
     <div class="services-wrapper">
         <div class="services-section">
             <div class="segmented-control-wrapper">
-                <div class="segmented-control">
+                <div class="segmented-control fadeInDownInfoDelay">
                     <button v-for="(category, index) in [allServices.civil, allServices.criminal, allServices.other]"
                         :key="index" @click="switchTab(category.name)"
                         :class="[{ 'tab-active': state.tab === category.name }, 'segmented-tab']">
@@ -55,21 +71,21 @@ function pushToRoute(pathName: string, routeParams: { type: string, path: string
             <transition name="fade" mode="out-in">
                 <div v-if="state.tab === 'civil'" class="services-content">
                     <div v-for="(service, index) in state.civilServices" :key="index">
-                        <u-service-item
+                        <u-service-item class="fadeInDownInfo"
                             @click="pushToRoute('service', { type: 'civil', path: service.path }, service.id)"
                             :serviceInfo="service" />
                     </div>
                 </div>
                 <div v-else-if="state.tab === 'criminal'" class="services-content">
                     <div v-for="(service, index) in state.criminalServices" :key="index">
-                        <u-service-item
+                        <u-service-item class="fadeInDownInfo"
                             @click="pushToRoute('service', { type: 'criminal', path: service.path }, service.id)"
                             :serviceInfo="service" />
                     </div>
                 </div>
                 <div v-else class="services-content">
                     <div v-for="(service, index) in state.otherServices" :key="index">
-                        <u-service-item
+                        <u-service-item class="fadeInDownInfo"
                             @click="pushToRoute('service', { type: 'other', path: service.path }, service.id)"
                             :serviceInfo="service" />
                     </div>
@@ -190,5 +206,37 @@ function pushToRoute(pathName: string, routeParams: { type: string, path: string
 .fade-enter-from,
 .fade-leave-to {
     opacity: 0;
+}
+
+@keyframes fadeInDownInfo {
+    from {
+        opacity: 0;
+        transform: translateY(-95%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fadeInDownInfo {
+    animation: fadeInDownInfo 1s ease-in-out forwards;
+}
+
+@keyframes fadeInDownInfoDelay {
+    from {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fadeInDownInfoDelay {
+    animation: fadeInDownInfoDelay 1.2s ease-in-out forwards;
 }
 </style>
